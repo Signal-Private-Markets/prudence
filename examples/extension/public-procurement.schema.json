@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/prudence-ext/public-procurement/v1",
+  "title": "Public procurement extension (synthetic example)",
+  "description": "Illustrative only. Shows how a domain attaches its own fields to PRUDENCE records.",
+  "$defs": {
+    "decision": {
+      "type": "object",
+      "properties": {
+        "solicitationNumber": {"type": "string", "minLength": 1},
+        "procurementMethod": {"enum": ["competitive_sealed_bid", "request_for_proposals", "sole_source", "small_purchase"]},
+        "bidsReceived": {"type": "integer", "minimum": 0},
+        "awardedAmount": {
+          "type": "object",
+          "properties": {"value": {"type": "number", "minimum": 0}, "currency": {"type": "string", "pattern": "^[A-Z]{3}$"}},
+          "required": ["value", "currency"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["solicitationNumber", "procurementMethod"],
+      "additionalProperties": false
+    },
+    "action": {
+      "type": "object",
+      "properties": {"contractNumber": {"type": "string", "minLength": 1}},
+      "required": ["contractNumber"],
+      "additionalProperties": false
+    }
+  }
+}

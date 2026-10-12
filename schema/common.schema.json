@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prudence.signalprivatemarkets.com/open/core/v0.1/schema/common.schema.json",
+  "title": "PRUDENCE v0.1 common definitions",
+  "$defs": {
+    "recordId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+      "description": "Identifier unique within a record set."
+    },
+    "recordRef": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+      "description": "Identifier of another record in the same record set."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Extension data keyed by the extension's namespace URI.",
+      "propertyNames": {
+        "pattern": "^https?://"
+      },
+      "additionalProperties": {
+        "type": "object"
+      }
+    }
+  },
+  "$comment": "PRUDENCE™: architecture and development by Signal Private Markets Infrastructure, Inc. Signal owns its original PRUDENCE material and directs the project. Outside contributions remain owned by their respective copyright holders unless separately agreed."
+}

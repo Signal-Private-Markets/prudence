@@ -1,0 +1,4 @@
+{
+  "comment": "Canonical PRUDENCE open-core namespace, on a Signal-owned subdomain. Set only here; regenerate with: python tools/gen_schemas.py schema",
+  "base": "https://prudence.signalprivatemarkets.com/open/core/v0.1/"
+}

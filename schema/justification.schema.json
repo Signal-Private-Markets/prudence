@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prudence.signalprivatemarkets.com/open/core/v0.1/schema/justification.schema.json",
+  "title": "Justification",
+  "description": "Reasoning stated by an actor. It is evidence of what was stated, not that the statement is true.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/recordId"
+    },
+    "type": {
+      "const": "Justification"
+    },
+    "extensions": {
+      "$ref": "common.schema.json#/$defs/extensions"
+    },
+    "about": {
+      "$ref": "common.schema.json#/$defs/recordRef"
+    },
+    "statedBy": {
+      "$ref": "common.schema.json#/$defs/recordRef"
+    },
+    "statedAt": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "statement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "citesEvidence": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/recordRef"
+      }
+    },
+    "alternativesRejected": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "alternative": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "alternative",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "id",
+    "type",
+    "about",
+    "statedBy",
+    "statedAt",
+    "statement"
+  ],
+  "additionalProperties": false,
+  "$comment": "PRUDENCE™: architecture and development by Signal Private Markets Infrastructure, Inc. Signal owns its original PRUDENCE material and directs the project. Outside contributions remain owned by their respective copyright holders unless separately agreed."
+}

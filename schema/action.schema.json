@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prudence.signalprivatemarkets.com/open/core/v0.1/schema/action.schema.json",
+  "title": "Action",
+  "description": "An intended or performed act implementing a decision, with zero or more execution attempts.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/recordId"
+    },
+    "type": {
+      "const": "Action"
+    },
+    "extensions": {
+      "$ref": "common.schema.json#/$defs/extensions"
+    },
+    "decision": {
+      "oneOf": [
+        {
+          "$ref": "common.schema.json#/$defs/recordRef"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "performer": {
+      "$ref": "common.schema.json#/$defs/recordRef"
+    },
+    "mode": {
+      "enum": [
+        "human",
+        "semi_automated",
+        "automated"
+      ]
+    },
+    "authorization": {
+      "oneOf": [
+        {
+          "$ref": "common.schema.json#/$defs/recordRef"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "authorizationVersion": {
+      "oneOf": [
+        {
+          "type": "integer",
+          "minimum": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "proposed",
+        "authorized",
+        "rejected",
+        "attempted",
+        "completed",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "attempts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "attemptId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "startedAt": {
+            "$ref": "common.schema.json#/$defs/timestamp"
+          },
+          "status": {
+            "enum": [
+              "attempted",
+              "completed",
+              "failed"
+            ]
+          }
+        },
+        "required": [
+          "attemptId",
+          "startedAt",
+          "status"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "id",
+    "type",
+    "decision",
+    "performer",
+    "mode",
+    "authorization",
+    "authorizationVersion",
+    "description",
+    "status",
+    "attempts"
+  ],
+  "additionalProperties": false,
+  "$comment": "PRUDENCE™: architecture and development by Signal Private Markets Infrastructure, Inc. Signal owns its original PRUDENCE material and directs the project. Outside contributions remain owned by their respective copyright holders unless separately agreed."
+}

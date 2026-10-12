@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prudence.signalprivatemarkets.com/open/core/v0.1/schema/authorization.schema.json",
+  "title": "Authorization",
+  "description": "A versioned grant permitting an actor to decide or act. Recording it does not itself authorize anything.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/recordId"
+    },
+    "type": {
+      "const": "Authorization"
+    },
+    "extensions": {
+      "$ref": "common.schema.json#/$defs/extensions"
+    },
+    "authorizationId": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Stable identifier shared by every version of the grant."
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "grantor": {
+      "$ref": "common.schema.json#/$defs/recordRef"
+    },
+    "grantee": {
+      "$ref": "common.schema.json#/$defs/recordRef"
+    },
+    "mandate": {
+      "$ref": "common.schema.json#/$defs/recordRef"
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "limits": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "humanApprovalRequired": {
+      "type": "boolean"
+    },
+    "validFrom": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "validTo": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "supersedes": {
+      "$ref": "common.schema.json#/$defs/recordRef"
+    }
+  },
+  "required": [
+    "id",
+    "type",
+    "authorizationId",
+    "version",
+    "grantor",
+    "grantee",
+    "scope",
+    "humanApprovalRequired",
+    "validFrom"
+  ],
+  "additionalProperties": false,
+  "$comment": "PRUDENCE™: architecture and development by Signal Private Markets Infrastructure, Inc. Signal owns its original PRUDENCE material and directs the project. Outside contributions remain owned by their respective copyright holders unless separately agreed."
+}

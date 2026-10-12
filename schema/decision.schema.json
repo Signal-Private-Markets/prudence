@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prudence.signalprivatemarkets.com/open/core/v0.1/schema/decision.schema.json",
+  "title": "Decision",
+  "description": "A choice made under a mandate.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/recordId"
+    },
+    "type": {
+      "const": "Decision"
+    },
+    "extensions": {
+      "$ref": "common.schema.json#/$defs/extensions"
+    },
+    "mandate": {
+      "$ref": "common.schema.json#/$defs/recordRef"
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decidedBy": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/recordRef"
+      },
+      "minItems": 1
+    },
+    "authorization": {
+      "$ref": "common.schema.json#/$defs/recordRef"
+    },
+    "authorizationVersion": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "status": {
+      "enum": [
+        "proposed",
+        "approved",
+        "rejected",
+        "superseded"
+      ]
+    },
+    "approval": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "approved",
+            "rejected",
+            "not_required_standing_authority"
+          ]
+        },
+        "approvedBy": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/recordRef"
+          }
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "decidedAt": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "effectiveAt": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "knowledgeAsOf": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "alternatives": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "chosen": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "description",
+          "chosen"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/recordRef"
+      }
+    },
+    "supersededBy": {
+      "$ref": "common.schema.json#/$defs/recordRef"
+    }
+  },
+  "required": [
+    "id",
+    "type",
+    "mandate",
+    "summary",
+    "decidedBy",
+    "authorization",
+    "authorizationVersion",
+    "status",
+    "approval",
+    "knowledgeAsOf"
+  ],
+  "additionalProperties": false,
+  "$comment": "PRUDENCE™: architecture and development by Signal Private Markets Infrastructure, Inc. Signal owns its original PRUDENCE material and directs the project. Outside contributions remain owned by their respective copyright holders unless separately agreed."
+}

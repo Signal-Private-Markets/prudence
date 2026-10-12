@@ -1,0 +1,486 @@
+{
+  "prudence": "0.1",
+  "description": "Deliberately invalid copy of automated/payment-release.json. ACT-PAY-8841 cites authorizationVersion 1 while referencing the version-2 authorization record.",
+  "records": [
+    {
+      "id": "ACT-finance-director",
+      "type": "Actor",
+      "actorKind": "human",
+      "name": "Lena Ortiz",
+      "role": "Finance director"
+    },
+    {
+      "id": "ACT-ap-service",
+      "type": "Actor",
+      "actorKind": "system",
+      "name": "Riverton accounts payable matching service",
+      "role": "Invoice matching and payment release",
+      "systemVersion": "3.2.0"
+    },
+    {
+      "id": "ACT-payment-gateway",
+      "type": "Actor",
+      "actorKind": "system",
+      "name": "Riverton payment gateway",
+      "role": "Bank payment submission and confirmation",
+      "systemVersion": "1.8.4"
+    },
+    {
+      "id": "MAN-AP",
+      "type": "Mandate",
+      "name": "Accounts payable",
+      "purpose": "Pay the City's valid obligations accurately and on time.",
+      "constraints": [
+        "Pay only invoices matched to a purchase order and a receiving record.",
+        "Hold any invoice outside matching tolerance for human review."
+      ],
+      "scope": "All City departments",
+      "governingInstrument": "Riverton Finance Policy FP-12 (synthetic)",
+      "version": 1
+    },
+    {
+      "id": "AUTH-AP-RELEASE-v1",
+      "type": "Authorization",
+      "authorizationId": "AUTH-AP-RELEASE",
+      "version": 1,
+      "grantor": "ACT-finance-director",
+      "grantee": "ACT-ap-service",
+      "mandate": "MAN-AP",
+      "scope": "Release payment on matched invoices without individual human approval.",
+      "limits": [
+        "Invoice amount up to $10,000.",
+        "Three-way match within 2% price tolerance and exact quantity.",
+        "Vendor on the approved vendor list."
+      ],
+      "humanApprovalRequired": false,
+      "validFrom": "2026-01-01T00:00:00Z",
+      "validTo": "2026-07-31T23:59:59Z"
+    },
+    {
+      "id": "AUTH-AP-RELEASE-v2",
+      "type": "Authorization",
+      "authorizationId": "AUTH-AP-RELEASE",
+      "version": 2,
+      "grantor": "ACT-finance-director",
+      "grantee": "ACT-ap-service",
+      "mandate": "MAN-AP",
+      "scope": "Release payment on matched invoices without individual human approval.",
+      "limits": [
+        "Invoice amount up to $25,000.",
+        "Three-way match within 2% price tolerance and exact quantity.",
+        "Vendor on the approved vendor list."
+      ],
+      "humanApprovalRequired": false,
+      "validFrom": "2026-08-01T00:00:00Z",
+      "validTo": "2027-07-31T23:59:59Z",
+      "supersedes": "AUTH-AP-RELEASE-v1"
+    },
+    {
+      "id": "EV-PO",
+      "type": "Evidence",
+      "description": "Purchase order PO-2027-0877: 900 tons asphalt binder at $20.50 per ton, $18,450.00.",
+      "source": "Riverton purchasing records",
+      "capturedAt": "2026-09-04T12:00:00Z",
+      "capturedBy": "ACT-ap-service",
+      "contentRef": "records://riverton/po/PO-2027-0877.json",
+      "contentHash": "sha256:a23330f585112825df1928bd9c77859099a451ee813139ca8adaeb3da8c81ec8"
+    },
+    {
+      "id": "EV-RECEIPT",
+      "type": "Evidence",
+      "description": "Receiving record RR-5521: 900 tons asphalt binder received at Public Works yard.",
+      "source": "Riverton receiving records",
+      "capturedAt": "2026-09-30T08:15:00Z",
+      "capturedBy": "ACT-ap-service",
+      "contentRef": "records://riverton/receiving/RR-5521.json",
+      "contentHash": "sha256:f3fa8f4d44f8cd087bcdfd7cd8021a3b6770e9fe9e67c79193f67c05c7853f34"
+    },
+    {
+      "id": "EV-INVOICE",
+      "type": "Evidence",
+      "description": "Invoice INV-8841 from Northgate Asphalt Supply: 900 tons at $20.50, $18,450.00.",
+      "source": "Vendor invoice intake",
+      "capturedAt": "2026-10-01T09:40:00Z",
+      "capturedBy": "ACT-ap-service",
+      "contentRef": "records://riverton/invoices/INV-8841.pdf",
+      "contentHash": "sha256:a90a41520bbf85c7fdf1e416fccadcc117b5fbfd93cd374ff6b8a8da58327313"
+    },
+    {
+      "id": "EV-MATCH",
+      "type": "Evidence",
+      "description": "Three-way match output for INV-8841: price variance 0.0%, quantity variance 0, vendor approved.",
+      "source": "Accounts payable matching service output",
+      "capturedAt": "2026-10-02T12:58:00Z",
+      "capturedBy": "ACT-ap-service",
+      "contentRef": "records://riverton/ap/match/INV-8841.json",
+      "contentHash": "sha256:fd416e585d293f5239eed0ad67e91a27dd82772b644019deee5a33dc86f2cc5b",
+      "sourceActor": "ACT-ap-service"
+    },
+    {
+      "id": "DEC-PAY-8841",
+      "type": "Decision",
+      "mandate": "MAN-AP",
+      "summary": "Release payment of $18,450.00 on invoice INV-8841 from Northgate Asphalt Supply.",
+      "decidedBy": [
+        "ACT-ap-service"
+      ],
+      "authorization": "AUTH-AP-RELEASE-v2",
+      "authorizationVersion": 2,
+      "status": "approved",
+      "approval": {
+        "status": "not_required_standing_authority"
+      },
+      "decidedAt": "2026-10-02T12:59:00Z",
+      "effectiveAt": "2026-10-02T12:59:00Z",
+      "knowledgeAsOf": "2026-10-02T12:58:00Z",
+      "alternatives": [
+        {
+          "description": "Release payment",
+          "chosen": true
+        },
+        {
+          "description": "Hold for human review",
+          "chosen": false
+        }
+      ],
+      "evidence": [
+        "EV-PO",
+        "EV-RECEIPT",
+        "EV-INVOICE",
+        "EV-MATCH"
+      ]
+    },
+    {
+      "id": "JUS-PAY-8841",
+      "type": "Justification",
+      "about": "DEC-PAY-8841",
+      "statedBy": "ACT-ap-service",
+      "statedAt": "2026-10-02T12:59:00Z",
+      "statement": "INV-8841 matches PO-2027-0877 and RR-5521 within tolerance (price variance 0.0%, quantities equal). The amount is within the $25,000 limit of AUTH-AP-RELEASE version 2.",
+      "citesEvidence": [
+        "EV-MATCH",
+        "EV-PO",
+        "EV-RECEIPT",
+        "EV-INVOICE"
+      ],
+      "alternativesRejected": [
+        {
+          "alternative": "Hold for human review",
+          "reason": "No tolerance breach or vendor flag was found."
+        }
+      ]
+    },
+    {
+      "id": "ACT-PAY-8841",
+      "type": "Action",
+      "decision": "DEC-PAY-8841",
+      "performer": "ACT-ap-service",
+      "mode": "automated",
+      "authorization": "AUTH-AP-RELEASE-v2",
+      "authorizationVersion": 1,
+      "description": "Submit payment of $18,450.00 to Northgate Asphalt Supply through the payment gateway.",
+      "status": "completed",
+      "attempts": [
+        {
+          "attemptId": "A1",
+          "startedAt": "2026-10-02T13:00:00Z",
+          "status": "failed"
+        },
+        {
+          "attemptId": "A2",
+          "startedAt": "2026-10-02T13:45:00Z",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "RES-PAY-8841-A1",
+      "type": "Result",
+      "action": "ACT-PAY-8841",
+      "attemptId": "A1",
+      "observedBy": "ACT-payment-gateway",
+      "observedAt": "2026-10-02T13:02:00Z",
+      "outcome": "Payment file rejected: the bank endpoint timed out before acknowledgment. No funds moved."
+    },
+    {
+      "id": "EXC-PAY-8841-A1",
+      "type": "Exception",
+      "exceptionType": "execution_failure",
+      "raisedOn": "ACT-PAY-8841",
+      "attemptId": "A1",
+      "raisedBy": "ACT-ap-service",
+      "raisedAt": "2026-10-02T13:02:10Z",
+      "description": "Attempt A1 failed: bank endpoint timeout.",
+      "resolution": "Retried after 43 minutes under the same authorization version; attempt A2 settled."
+    },
+    {
+      "id": "RES-PAY-8841-A2",
+      "type": "Result",
+      "action": "ACT-PAY-8841",
+      "attemptId": "A2",
+      "observedBy": "ACT-payment-gateway",
+      "observedAt": "2026-10-02T13:47:00Z",
+      "outcome": "Payment of $18,450.00 settled; bank reference 7Q2-118844."
+    },
+    {
+      "id": "EVT-ACT-finance-director-01",
+      "type": "RecordEvent",
+      "subject": "ACT-finance-director",
+      "actor": "ACT-finance-director",
+      "at": "2026-01-02T09:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-ACT-ap-service-01",
+      "type": "RecordEvent",
+      "subject": "ACT-ap-service",
+      "actor": "ACT-finance-director",
+      "at": "2026-01-02T09:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-ACT-payment-gateway-01",
+      "type": "RecordEvent",
+      "subject": "ACT-payment-gateway",
+      "actor": "ACT-finance-director",
+      "at": "2026-01-02T09:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-MAN-AP-01",
+      "type": "RecordEvent",
+      "subject": "MAN-AP",
+      "actor": "ACT-finance-director",
+      "at": "2026-01-02T09:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-AUTH-AP-RELEASE-v1-01",
+      "type": "RecordEvent",
+      "subject": "AUTH-AP-RELEASE-v1",
+      "actor": "ACT-finance-director",
+      "at": "2026-01-02T09:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-AUTH-AP-RELEASE-v2-01",
+      "type": "RecordEvent",
+      "subject": "AUTH-AP-RELEASE-v2",
+      "actor": "ACT-finance-director",
+      "at": "2026-07-28T10:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-EV-PO-01",
+      "type": "RecordEvent",
+      "subject": "EV-PO",
+      "actor": "ACT-ap-service",
+      "at": "2026-09-04T12:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-EV-RECEIPT-01",
+      "type": "RecordEvent",
+      "subject": "EV-RECEIPT",
+      "actor": "ACT-ap-service",
+      "at": "2026-09-30T08:15:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-EV-INVOICE-01",
+      "type": "RecordEvent",
+      "subject": "EV-INVOICE",
+      "actor": "ACT-ap-service",
+      "at": "2026-10-01T09:40:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-EV-MATCH-01",
+      "type": "RecordEvent",
+      "subject": "EV-MATCH",
+      "actor": "ACT-ap-service",
+      "at": "2026-10-02T12:58:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-DEC-PAY-8841-01",
+      "type": "RecordEvent",
+      "subject": "DEC-PAY-8841",
+      "actor": "ACT-ap-service",
+      "at": "2026-10-02T12:58:30Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-DEC-PAY-8841-02",
+      "type": "RecordEvent",
+      "subject": "DEC-PAY-8841",
+      "actor": "ACT-ap-service",
+      "at": "2026-10-02T12:59:00Z",
+      "change": {
+        "kind": "status_changed",
+        "field": "status",
+        "from": "proposed",
+        "to": "approved"
+      },
+      "prior": "EVT-DEC-PAY-8841-01"
+    },
+    {
+      "id": "EVT-JUS-PAY-8841-01",
+      "type": "RecordEvent",
+      "subject": "JUS-PAY-8841",
+      "actor": "ACT-ap-service",
+      "at": "2026-10-02T12:59:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-ACT-PAY-8841-01",
+      "type": "RecordEvent",
+      "subject": "ACT-PAY-8841",
+      "actor": "ACT-ap-service",
+      "at": "2026-10-02T12:59:30Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-ACT-PAY-8841-02",
+      "type": "RecordEvent",
+      "subject": "ACT-PAY-8841",
+      "actor": "ACT-ap-service",
+      "at": "2026-10-02T12:59:40Z",
+      "change": {
+        "kind": "status_changed",
+        "field": "status",
+        "from": "proposed",
+        "to": "authorized"
+      },
+      "prior": "EVT-ACT-PAY-8841-01"
+    },
+    {
+      "id": "EVT-ACT-PAY-8841-03",
+      "type": "RecordEvent",
+      "subject": "ACT-PAY-8841",
+      "actor": "ACT-ap-service",
+      "at": "2026-10-02T13:00:00Z",
+      "change": {
+        "kind": "status_changed",
+        "field": "status",
+        "from": "authorized",
+        "to": "attempted"
+      },
+      "prior": "EVT-ACT-PAY-8841-02"
+    },
+    {
+      "id": "EVT-ACT-PAY-8841-04",
+      "type": "RecordEvent",
+      "subject": "ACT-PAY-8841",
+      "actor": "ACT-ap-service",
+      "at": "2026-10-02T13:02:00Z",
+      "change": {
+        "kind": "status_changed",
+        "field": "status",
+        "from": "attempted",
+        "to": "failed"
+      },
+      "prior": "EVT-ACT-PAY-8841-03"
+    },
+    {
+      "id": "EVT-ACT-PAY-8841-05",
+      "type": "RecordEvent",
+      "subject": "ACT-PAY-8841",
+      "actor": "ACT-ap-service",
+      "at": "2026-10-02T13:45:00Z",
+      "change": {
+        "kind": "status_changed",
+        "field": "status",
+        "from": "failed",
+        "to": "attempted"
+      },
+      "prior": "EVT-ACT-PAY-8841-04"
+    },
+    {
+      "id": "EVT-ACT-PAY-8841-06",
+      "type": "RecordEvent",
+      "subject": "ACT-PAY-8841",
+      "actor": "ACT-ap-service",
+      "at": "2026-10-02T13:47:00Z",
+      "change": {
+        "kind": "status_changed",
+        "field": "status",
+        "from": "attempted",
+        "to": "completed"
+      },
+      "prior": "EVT-ACT-PAY-8841-05"
+    },
+    {
+      "id": "EVT-RES-PAY-8841-A1-01",
+      "type": "RecordEvent",
+      "subject": "RES-PAY-8841-A1",
+      "actor": "ACT-payment-gateway",
+      "at": "2026-10-02T13:02:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-EXC-PAY-8841-A1-01",
+      "type": "RecordEvent",
+      "subject": "EXC-PAY-8841-A1",
+      "actor": "ACT-ap-service",
+      "at": "2026-10-02T13:02:10Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-RES-PAY-8841-A2-01",
+      "type": "RecordEvent",
+      "subject": "RES-PAY-8841-A2",
+      "actor": "ACT-payment-gateway",
+      "at": "2026-10-02T13:47:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    }
+  ]
+}

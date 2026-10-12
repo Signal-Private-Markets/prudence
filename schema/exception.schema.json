@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prudence.signalprivatemarkets.com/open/core/v0.1/schema/exception.schema.json",
+  "title": "Exception",
+  "description": "A condition that stops normal completion.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/recordId"
+    },
+    "type": {
+      "const": "Exception"
+    },
+    "extensions": {
+      "$ref": "common.schema.json#/$defs/extensions"
+    },
+    "exceptionType": {
+      "enum": [
+        "missing_decision",
+        "missing_authorization",
+        "missing_evidence",
+        "expired_authority",
+        "conflicting_instructions",
+        "execution_failure",
+        "escalation"
+      ]
+    },
+    "raisedOn": {
+      "$ref": "common.schema.json#/$defs/recordRef"
+    },
+    "attemptId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "raisedBy": {
+      "$ref": "common.schema.json#/$defs/recordRef"
+    },
+    "raisedAt": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "resolution": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "type",
+    "exceptionType",
+    "raisedOn",
+    "raisedBy",
+    "raisedAt",
+    "description"
+  ],
+  "additionalProperties": false,
+  "$comment": "PRUDENCE™: architecture and development by Signal Private Markets Infrastructure, Inc. Signal owns its original PRUDENCE material and directs the project. Outside contributions remain owned by their respective copyright holders unless separately agreed."
+}

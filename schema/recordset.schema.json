@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prudence.signalprivatemarkets.com/open/core/v0.1/schema/recordset.schema.json",
+  "title": "PRUDENCE v0.1 record set",
+  "description": "A set of PRUDENCE records validated together.",
+  "type": "object",
+  "properties": {
+    "prudence": {
+      "const": "0.1"
+    },
+    "description": {
+      "type": "string"
+    },
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "mandate.schema.json"
+          },
+          {
+            "$ref": "actor.schema.json"
+          },
+          {
+            "$ref": "authorization.schema.json"
+          },
+          {
+            "$ref": "decision.schema.json"
+          },
+          {
+            "$ref": "evidence.schema.json"
+          },
+          {
+            "$ref": "justification.schema.json"
+          },
+          {
+            "$ref": "action.schema.json"
+          },
+          {
+            "$ref": "result.schema.json"
+          },
+          {
+            "$ref": "exception.schema.json"
+          },
+          {
+            "$ref": "recordEvent.schema.json"
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "prudence",
+    "records"
+  ],
+  "additionalProperties": false,
+  "$comment": "PRUDENCE™: architecture and development by Signal Private Markets Infrastructure, Inc. Signal owns its original PRUDENCE material and directs the project. Outside contributions remain owned by their respective copyright holders unless separately agreed."
+}

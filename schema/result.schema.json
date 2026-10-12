@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prudence.signalprivatemarkets.com/open/core/v0.1/schema/result.schema.json",
+  "title": "Result",
+  "description": "The observed outcome of one execution attempt.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/recordId"
+    },
+    "type": {
+      "const": "Result"
+    },
+    "extensions": {
+      "$ref": "common.schema.json#/$defs/extensions"
+    },
+    "action": {
+      "$ref": "common.schema.json#/$defs/recordRef"
+    },
+    "attemptId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "observedBy": {
+      "$ref": "common.schema.json#/$defs/recordRef"
+    },
+    "observedAt": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "outcome": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/recordRef"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "type",
+    "action",
+    "attemptId",
+    "observedBy",
+    "observedAt",
+    "outcome"
+  ],
+  "additionalProperties": false,
+  "$comment": "PRUDENCE™: architecture and development by Signal Private Markets Infrastructure, Inc. Signal owns its original PRUDENCE material and directs the project. Outside contributions remain owned by their respective copyright holders unless separately agreed."
+}

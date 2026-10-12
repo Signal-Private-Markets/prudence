@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prudence.signalprivatemarkets.com/open/core/v0.1/schema/recordEvent.schema.json",
+  "title": "Record Event",
+  "description": "An append-only entry for each creation or change of a record.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/recordId"
+    },
+    "type": {
+      "const": "RecordEvent"
+    },
+    "extensions": {
+      "$ref": "common.schema.json#/$defs/extensions"
+    },
+    "subject": {
+      "$ref": "common.schema.json#/$defs/recordRef"
+    },
+    "actor": {
+      "$ref": "common.schema.json#/$defs/recordRef"
+    },
+    "at": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "change": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "created",
+            "status_changed",
+            "amended"
+          ]
+        },
+        "field": {
+          "type": "string"
+        },
+        "from": {},
+        "to": {}
+      },
+      "required": [
+        "kind"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "status_changed"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "field",
+              "from",
+              "to"
+            ],
+            "properties": {
+              "field": {
+                "type": "string"
+              },
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "prior": {
+      "oneOf": [
+        {
+          "$ref": "common.schema.json#/$defs/recordRef"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "type",
+    "subject",
+    "actor",
+    "at",
+    "change",
+    "prior"
+  ],
+  "additionalProperties": false,
+  "$comment": "PRUDENCE™: architecture and development by Signal Private Markets Infrastructure, Inc. Signal owns its original PRUDENCE material and directs the project. Outside contributions remain owned by their respective copyright holders unless separately agreed."
+}

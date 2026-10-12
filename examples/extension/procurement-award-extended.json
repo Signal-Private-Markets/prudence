@@ -1,0 +1,516 @@
+{
+  "prudence": "0.1",
+  "description": "The human-approved example with a synthetic public-procurement extension attached to the Decision and Action records. See extending.md.",
+  "records": [
+    {
+      "id": "ACT-council",
+      "type": "Actor",
+      "actorKind": "organization",
+      "name": "Riverton City Council",
+      "role": "Governing body"
+    },
+    {
+      "id": "ACT-committee",
+      "type": "Actor",
+      "actorKind": "organization",
+      "name": "Riverton Procurement Committee",
+      "role": "Award authority"
+    },
+    {
+      "id": "ACT-chair",
+      "type": "Actor",
+      "actorKind": "human",
+      "name": "Dana Reyes",
+      "role": "Procurement Committee chair"
+    },
+    {
+      "id": "ACT-member-1",
+      "type": "Actor",
+      "actorKind": "human",
+      "name": "Malik Chen",
+      "role": "Procurement Committee member"
+    },
+    {
+      "id": "ACT-member-2",
+      "type": "Actor",
+      "actorKind": "human",
+      "name": "Priya Nair",
+      "role": "Procurement Committee member"
+    },
+    {
+      "id": "ACT-officer",
+      "type": "Actor",
+      "actorKind": "human",
+      "name": "Owen Hart",
+      "role": "Procurement officer"
+    },
+    {
+      "id": "ACT-clerk",
+      "type": "Actor",
+      "actorKind": "human",
+      "name": "Ruth Alvarez",
+      "role": "City clerk"
+    },
+    {
+      "id": "MAN-PW-PROC",
+      "type": "Mandate",
+      "name": "Public Works procurement",
+      "purpose": "Obtain goods, services, and construction for the Public Works Department at the best value to the public, through fair and open competition.",
+      "constraints": [
+        "Competitive sealed bidding is required above $50,000.",
+        "Award goes to the lowest responsive and responsible bidder.",
+        "Construction bids must include a bid bond of 5% of the bid amount."
+      ],
+      "scope": "Public Works Department, fiscal year 2027",
+      "governingInstrument": "Riverton Procurement Ordinance, section 4 (synthetic)",
+      "version": 1
+    },
+    {
+      "id": "AUTH-COMMITTEE-AWARD-v1",
+      "type": "Authorization",
+      "authorizationId": "AUTH-COMMITTEE-AWARD",
+      "version": 1,
+      "grantor": "ACT-council",
+      "grantee": "ACT-committee",
+      "mandate": "MAN-PW-PROC",
+      "scope": "Award construction contracts under the Public Works procurement mandate.",
+      "limits": [
+        "Contract value up to $500,000.",
+        "Award requires the recorded approval of at least two committee members."
+      ],
+      "humanApprovalRequired": true,
+      "validFrom": "2026-07-01T00:00:00Z",
+      "validTo": "2027-06-30T23:59:59Z"
+    },
+    {
+      "id": "AUTH-OFFICER-EXECUTE-v1",
+      "type": "Authorization",
+      "authorizationId": "AUTH-OFFICER-EXECUTE",
+      "version": 1,
+      "grantor": "ACT-council",
+      "grantee": "ACT-officer",
+      "mandate": "MAN-PW-PROC",
+      "scope": "Execute contracts the Procurement Committee has awarded.",
+      "limits": [
+        "Only contracts with a recorded award decision.",
+        "No change to the awarded price or scope."
+      ],
+      "humanApprovalRequired": false,
+      "validFrom": "2026-07-01T00:00:00Z",
+      "validTo": "2027-06-30T23:59:59Z"
+    },
+    {
+      "id": "EV-BID-TAB",
+      "type": "Evidence",
+      "description": "Bid tabulation for Elm Street resurfacing, solicitation RFB-2027-014: Bidder A $389,500; Bidder B $412,000; Bidder C $447,800.",
+      "source": "Riverton procurement records",
+      "capturedAt": "2026-09-15T15:10:00Z",
+      "capturedBy": "ACT-officer",
+      "contentRef": "records://riverton/rfb-2027-014/bid-tabulation.pdf",
+      "contentHash": "sha256:6b9e12d2540b7404de8ba65c9975f7f0cfd704916545e4fcfa8a125fd8712db1"
+    },
+    {
+      "id": "EV-BOND-CHECK",
+      "type": "Evidence",
+      "description": "Bid bond verification: Bidders B and C submitted 5% bid bonds; Bidder A submitted none.",
+      "source": "Riverton procurement records",
+      "capturedAt": "2026-09-16T11:30:00Z",
+      "capturedBy": "ACT-officer",
+      "contentRef": "records://riverton/rfb-2027-014/bond-verification.pdf",
+      "contentHash": "sha256:d9074b2a4750538a2af71c8aee6f9bc6320632c5ae5acf857b644324114c8f0d"
+    },
+    {
+      "id": "EV-RESPONSIBILITY",
+      "type": "Evidence",
+      "description": "Responsibility review of Bidder B: state contractor license active, three references confirmed.",
+      "source": "Riverton procurement records",
+      "capturedAt": "2026-09-18T14:00:00Z",
+      "capturedBy": "ACT-officer",
+      "contentRef": "records://riverton/rfb-2027-014/responsibility-review.pdf",
+      "contentHash": "sha256:79b9f90b59148758376c5e5528afe709b0fba9e31bdfe231766c88b7aa981ae4"
+    },
+    {
+      "id": "DEC-AWARD-014",
+      "type": "Decision",
+      "mandate": "MAN-PW-PROC",
+      "summary": "Award the Elm Street resurfacing contract (RFB-2027-014) to Bidder B for $412,000.",
+      "decidedBy": [
+        "ACT-committee"
+      ],
+      "authorization": "AUTH-COMMITTEE-AWARD-v1",
+      "authorizationVersion": 1,
+      "status": "approved",
+      "approval": {
+        "status": "approved",
+        "approvedBy": [
+          "ACT-chair",
+          "ACT-member-1",
+          "ACT-member-2"
+        ]
+      },
+      "decidedAt": "2026-09-22T18:30:00Z",
+      "effectiveAt": "2026-09-23T00:00:00Z",
+      "knowledgeAsOf": "2026-09-22T17:00:00Z",
+      "alternatives": [
+        {
+          "description": "Award to Bidder A at $389,500",
+          "chosen": false
+        },
+        {
+          "description": "Award to Bidder B at $412,000",
+          "chosen": true
+        },
+        {
+          "description": "Award to Bidder C at $447,800",
+          "chosen": false
+        },
+        {
+          "description": "Reject all bids and re-bid",
+          "chosen": false
+        }
+      ],
+      "evidence": [
+        "EV-BID-TAB",
+        "EV-BOND-CHECK",
+        "EV-RESPONSIBILITY"
+      ],
+      "extensions": {
+        "https://example.org/prudence-ext/public-procurement/v1": {
+          "solicitationNumber": "RFB-2027-014",
+          "procurementMethod": "competitive_sealed_bid",
+          "bidsReceived": 3,
+          "awardedAmount": {
+            "value": 412000,
+            "currency": "USD"
+          }
+        }
+      }
+    },
+    {
+      "id": "JUS-AWARD-014",
+      "type": "Justification",
+      "about": "DEC-AWARD-014",
+      "statedBy": "ACT-chair",
+      "statedAt": "2026-09-22T18:30:00Z",
+      "statement": "Bidder B is the lowest responsive and responsible bidder. Bidder A offered the lowest price but submitted no bid bond, so its bid is non-responsive under the mandate's constraints.",
+      "citesEvidence": [
+        "EV-BID-TAB",
+        "EV-BOND-CHECK",
+        "EV-RESPONSIBILITY"
+      ],
+      "alternativesRejected": [
+        {
+          "alternative": "Award to Bidder A",
+          "reason": "Non-responsive: required bid bond missing."
+        },
+        {
+          "alternative": "Award to Bidder C",
+          "reason": "Higher price than a responsive, responsible bid."
+        },
+        {
+          "alternative": "Reject all bids and re-bid",
+          "reason": "A responsive bid within budget was received."
+        }
+      ]
+    },
+    {
+      "id": "ACT-EXECUTE-014",
+      "type": "Action",
+      "decision": "DEC-AWARD-014",
+      "performer": "ACT-officer",
+      "mode": "human",
+      "authorization": "AUTH-OFFICER-EXECUTE-v1",
+      "authorizationVersion": 1,
+      "description": "Execute construction contract C-2027-031 with Bidder B.",
+      "status": "completed",
+      "attempts": [
+        {
+          "attemptId": "A1",
+          "startedAt": "2026-09-29T14:00:00Z",
+          "status": "completed"
+        }
+      ],
+      "extensions": {
+        "https://example.org/prudence-ext/public-procurement/v1": {
+          "contractNumber": "C-2027-031"
+        }
+      }
+    },
+    {
+      "id": "EV-CONTRACT",
+      "type": "Evidence",
+      "description": "Executed contract C-2027-031, signed by Bidder B and the procurement officer.",
+      "source": "Office of the City Clerk",
+      "capturedAt": "2026-09-29T16:20:00Z",
+      "capturedBy": "ACT-clerk",
+      "contentRef": "records://riverton/contracts/C-2027-031.pdf",
+      "contentHash": "sha256:2386154064b9f0937770726fa0324a672f93b343876ce6b0abb29098416c8d0c"
+    },
+    {
+      "id": "RES-EXECUTE-014-A1",
+      "type": "Result",
+      "action": "ACT-EXECUTE-014",
+      "attemptId": "A1",
+      "observedBy": "ACT-clerk",
+      "observedAt": "2026-09-29T16:20:00Z",
+      "outcome": "Contract C-2027-031 executed by both parties and filed with the City Clerk.",
+      "evidence": [
+        "EV-CONTRACT"
+      ]
+    },
+    {
+      "id": "EVT-ACT-council-01",
+      "type": "RecordEvent",
+      "subject": "ACT-council",
+      "actor": "ACT-council",
+      "at": "2026-07-01T09:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-ACT-committee-01",
+      "type": "RecordEvent",
+      "subject": "ACT-committee",
+      "actor": "ACT-council",
+      "at": "2026-07-01T09:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-ACT-chair-01",
+      "type": "RecordEvent",
+      "subject": "ACT-chair",
+      "actor": "ACT-council",
+      "at": "2026-07-01T09:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-ACT-member-1-01",
+      "type": "RecordEvent",
+      "subject": "ACT-member-1",
+      "actor": "ACT-council",
+      "at": "2026-07-01T09:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-ACT-member-2-01",
+      "type": "RecordEvent",
+      "subject": "ACT-member-2",
+      "actor": "ACT-council",
+      "at": "2026-07-01T09:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-ACT-officer-01",
+      "type": "RecordEvent",
+      "subject": "ACT-officer",
+      "actor": "ACT-council",
+      "at": "2026-07-01T09:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-ACT-clerk-01",
+      "type": "RecordEvent",
+      "subject": "ACT-clerk",
+      "actor": "ACT-council",
+      "at": "2026-07-01T09:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-MAN-PW-PROC-01",
+      "type": "RecordEvent",
+      "subject": "MAN-PW-PROC",
+      "actor": "ACT-council",
+      "at": "2026-07-01T09:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-AUTH-COMMITTEE-AWARD-v1-01",
+      "type": "RecordEvent",
+      "subject": "AUTH-COMMITTEE-AWARD-v1",
+      "actor": "ACT-council",
+      "at": "2026-07-01T09:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-AUTH-OFFICER-EXECUTE-v1-01",
+      "type": "RecordEvent",
+      "subject": "AUTH-OFFICER-EXECUTE-v1",
+      "actor": "ACT-council",
+      "at": "2026-07-01T09:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-EV-BID-TAB-01",
+      "type": "RecordEvent",
+      "subject": "EV-BID-TAB",
+      "actor": "ACT-officer",
+      "at": "2026-09-15T15:10:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-EV-BOND-CHECK-01",
+      "type": "RecordEvent",
+      "subject": "EV-BOND-CHECK",
+      "actor": "ACT-officer",
+      "at": "2026-09-16T11:30:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-EV-RESPONSIBILITY-01",
+      "type": "RecordEvent",
+      "subject": "EV-RESPONSIBILITY",
+      "actor": "ACT-officer",
+      "at": "2026-09-18T14:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-DEC-AWARD-014-01",
+      "type": "RecordEvent",
+      "subject": "DEC-AWARD-014",
+      "actor": "ACT-officer",
+      "at": "2026-09-19T10:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-DEC-AWARD-014-02",
+      "type": "RecordEvent",
+      "subject": "DEC-AWARD-014",
+      "actor": "ACT-chair",
+      "at": "2026-09-22T18:30:00Z",
+      "change": {
+        "kind": "status_changed",
+        "field": "status",
+        "from": "proposed",
+        "to": "approved"
+      },
+      "prior": "EVT-DEC-AWARD-014-01"
+    },
+    {
+      "id": "EVT-JUS-AWARD-014-01",
+      "type": "RecordEvent",
+      "subject": "JUS-AWARD-014",
+      "actor": "ACT-chair",
+      "at": "2026-09-22T18:30:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-ACT-EXECUTE-014-01",
+      "type": "RecordEvent",
+      "subject": "ACT-EXECUTE-014",
+      "actor": "ACT-officer",
+      "at": "2026-09-23T09:00:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-ACT-EXECUTE-014-02",
+      "type": "RecordEvent",
+      "subject": "ACT-EXECUTE-014",
+      "actor": "ACT-officer",
+      "at": "2026-09-23T09:05:00Z",
+      "change": {
+        "kind": "status_changed",
+        "field": "status",
+        "from": "proposed",
+        "to": "authorized"
+      },
+      "prior": "EVT-ACT-EXECUTE-014-01"
+    },
+    {
+      "id": "EVT-ACT-EXECUTE-014-03",
+      "type": "RecordEvent",
+      "subject": "ACT-EXECUTE-014",
+      "actor": "ACT-officer",
+      "at": "2026-09-29T14:00:00Z",
+      "change": {
+        "kind": "status_changed",
+        "field": "status",
+        "from": "authorized",
+        "to": "attempted"
+      },
+      "prior": "EVT-ACT-EXECUTE-014-02"
+    },
+    {
+      "id": "EVT-ACT-EXECUTE-014-04",
+      "type": "RecordEvent",
+      "subject": "ACT-EXECUTE-014",
+      "actor": "ACT-officer",
+      "at": "2026-09-29T16:00:00Z",
+      "change": {
+        "kind": "status_changed",
+        "field": "status",
+        "from": "attempted",
+        "to": "completed"
+      },
+      "prior": "EVT-ACT-EXECUTE-014-03"
+    },
+    {
+      "id": "EVT-EV-CONTRACT-01",
+      "type": "RecordEvent",
+      "subject": "EV-CONTRACT",
+      "actor": "ACT-clerk",
+      "at": "2026-09-29T16:20:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    },
+    {
+      "id": "EVT-RES-EXECUTE-014-A1-01",
+      "type": "RecordEvent",
+      "subject": "RES-EXECUTE-014-A1",
+      "actor": "ACT-clerk",
+      "at": "2026-09-29T16:20:00Z",
+      "change": {
+        "kind": "created"
+      },
+      "prior": null
+    }
+  ]
+}
