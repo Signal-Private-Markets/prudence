@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PRUDENCE — open-core ontology v0.1</title>
+<style>
+  :root { color-scheme: light dark; --fg:#1a1a1a; --muted:#666; --bg:#fff; --card:#f6f7f9; --line:#e3e6ea; --link:#0b5cad; }
+  @media (prefers-color-scheme: dark){ :root { --fg:#e8e8e8; --muted:#9aa0a6; --bg:#15171a; --card:#1e2126; --line:#2c3036; --link:#6bb0ff; } }
+  *{box-sizing:border-box}
+  body{margin:0;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--fg);background:var(--bg)}
+  main{max-width:860px;margin:0 auto;padding:48px 20px 80px}
+  h1{font-size:1.9rem;margin:0 0 .2em;letter-spacing:-.01em}
+  .sub{color:var(--muted);margin:0 0 1.6em}
+  h2{font-size:1.05rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:2em 0 .6em}
+  a{color:var(--link);text-decoration:none} a:hover{text-decoration:underline}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+  .grid a,.docs a{display:block;padding:10px 12px;background:var(--card);border:1px solid var(--line);border-radius:8px}
+  code{background:var(--card);padding:2px 6px;border-radius:5px;font-size:.9em;word-break:break-all}
+  .foot{margin-top:2.5em;padding-top:1.2em;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<main>
+  <h1>PRUDENCE — open-core ontology</h1>
+  <p class="sub">Version 0.1 · a minimal, implementable schema for fiduciary decision records.<br>
+  Canonical namespace: <code>https://prudence.signalprivatemarkets.com/open/core/v0.1/</code></p>
+  <p>
+    <a href="https://github.com/Signal-Private-Markets/prudence">GitHub repository</a> ·
+    <a href="https://github.com/Signal-Private-Markets/prudence/releases/tag/v0.1">Release v0.1</a> ·
+    <a href="LICENSE">Apache-2.0</a>
+  </p>
+  <h2>Start here</h2>
+  <div class="docs grid">
+    <a href="README.md">README</a>
+    <a href="QUICKSTART.md">Quick start</a>
+    <a href="concepts.md">Concepts &amp; record rules</a>
+    <a href="LIMITATIONS.md">Limitations &amp; error codes</a>
+    <a href="extending.md">Extending</a>
+    <a href="namespace.json">namespace.json</a>
+  </div>
+  <h2>Schemas (JSON Schema 2020-12)</h2>
+  <div class="grid">
+    <a href="schema/mandate.schema.json">mandate</a>
+    <a href="schema/actor.schema.json">actor</a>
+    <a href="schema/authorization.schema.json">authorization</a>
+    <a href="schema/decision.schema.json">decision</a>
+    <a href="schema/evidence.schema.json">evidence</a>
+    <a href="schema/justification.schema.json">justification</a>
+    <a href="schema/action.schema.json">action</a>
+    <a href="schema/result.schema.json">result</a>
+    <a href="schema/exception.schema.json">exception</a>
+    <a href="schema/recordEvent.schema.json">recordEvent</a>
+    <a href="schema/recordset.schema.json">recordset</a>
+    <a href="schema/common.schema.json">common ($defs)</a>
+  </div>
+  <h2>Examples &amp; validator</h2>
+  <div class="docs grid">
+    <a href="examples/human-approved/procurement-award.json">example · human-approved</a>
+    <a href="examples/automated/payment-release.json">example · automated</a>
+    <a href="examples/invalid/wrong-authorization-version.json">example · invalid</a>
+    <a href="validate/prudence_validate.py">validator (Python)</a>
+  </div>
+  <div class="foot">PRUDENCE open-core · Apache-2.0 · contributions under the Developer Certificate of Origin.</div>
+</main>
+</body>
+</html>
